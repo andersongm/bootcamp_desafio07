@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
 
 import api from '../../services/api';
-import { Container, ProductList } from './styles';
+import {
+    Container,
+    ProductList,
+    ProductItem,
+    Image,
+    Description,
+    Price,
+    ButtonAddCart,
+    ButtonAddCartText,
+    ViewBtn,
+} from './styles';
 import Header from '../../components/Header';
 
 export default class Main extends Component {
@@ -33,12 +42,20 @@ export default class Main extends Component {
                 <ProductList
                     data={products}
                     keyExtractor={product => product.id}
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
-                        <View>
-                            <Text>{item.title}</Text>
-                        </View>
+                        <ProductItem>
+                            <Image source={{ uri: item.image }} />
+                            <Description>{item.title}</Description>
+                            <Price>{item.price}</Price>
+                            <ViewBtn>
+                                <ButtonAddCart>
+                                    <ButtonAddCartText>
+                                        Adicionar ao Carrinho
+                                    </ButtonAddCartText>
+                                </ButtonAddCart>
+                            </ViewBtn>
+                        </ProductItem>
                     )}
                 />
             </Container>
