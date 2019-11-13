@@ -16,10 +16,6 @@ export const Logo = styled.Image.attrs({
     height: 24px;
 `;
 
-export const ButtonIconText = styled.Text``;
-
-export const ButtonIcon = styled.View``;
-
 export const CartContainer = styled.View``;
 
 export const ItemCount = styled.Text`

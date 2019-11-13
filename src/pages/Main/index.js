@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
+import Header from '../../components/Header';
 import api from '../../services/api';
+
 import {
     Container,
     ProductList,
@@ -11,11 +12,9 @@ import {
     Price,
     ButtonAddCart,
     ButtonAddCartText,
-    ViewBtn,
     ButtonIconText,
     ButtonIcon,
 } from './styles';
-import Header from '../../components/Header';
 
 export default class Main extends Component {
     static navigationOptions = {
@@ -51,24 +50,19 @@ export default class Main extends Component {
                             <Image source={{ uri: item.image }} />
                             <Description>{item.title}</Description>
                             <Price>{item.price}</Price>
-                            <ViewBtn>
-                                <ButtonAddCart>
-                                    <ButtonIcon>
-                                        <Icon
-                                            name="shopping-basket"
-                                            size={20}
-                                            color="#FFF"
-                                        />
-                                        <ButtonIconText>
-                                            1
-                                        </ButtonIconText>
-                                    </ButtonIcon>
-
-                                    <ButtonAddCartText>
-                                        Adicionar ao Carrinho
-                                    </ButtonAddCartText>
-                                </ButtonAddCart>
-                            </ViewBtn>
+                            <ButtonAddCart>
+                                <ButtonIcon>
+                                    <Icon
+                                        name="add-shopping-cart"
+                                        size={20}
+                                        color="#FFF"
+                                    />
+                                    <ButtonIconText>0</ButtonIconText>
+                                </ButtonIcon>
+                                <ButtonAddCartText>
+                                    ADICIONAR AO CARRINHO
+                                </ButtonAddCartText>
+                            </ButtonAddCart>
                         </ProductItem>
                     )}
                 />

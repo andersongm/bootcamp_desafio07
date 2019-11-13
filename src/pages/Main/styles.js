@@ -42,15 +42,34 @@ export const Price = styled.Text`
     font-size: 18px;
     padding: 5px;
 `;
-export const ButtonAddCart = styled.TouchableOpacity`
+
+export const ButtonIconText = styled.Text`
+    color: #fff;
+    padding: 0 4px;
+`;
+
+export const ButtonIcon = styled.View`
+    /* flex: 1; */
+    padding: 12px;
+    flex-direction: row;
+    align-items: center;
     background: #7159c1;
-    width: 80%;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+`;
+export const ButtonAddCart = styled.TouchableOpacity`
+    flex-direction: row;
+    /* background: #7159c1; */
+    background: #9176cc;
+    width: 90%;
     height: 40px;
     border-radius: 4px;
     justify-content: center;
     align-items: center;
 `;
 export const ButtonAddCartText = styled.Text`
+    flex: 1;
     color: #fff;
+    text-align: center;
     font-weight: bold;
 `;
