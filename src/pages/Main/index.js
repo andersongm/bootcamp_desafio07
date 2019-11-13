@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'; // Conecta o Componente ao Estado do Redux
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header';
 import api from '../../services/api';
@@ -16,10 +17,12 @@ import {
     ButtonIcon,
 } from './styles';
 
-export default class Main extends Component {
+class Main extends Component {
     static navigationOptions = {
         title: 'Produtos',
     };
+
+    navigation = this.props;
 
     state = {
         products: [],
@@ -34,6 +37,12 @@ export default class Main extends Component {
             products: response.data,
         });
     }
+
+    handleAddToCart = item => {
+        console.tron.log('Add');
+        const { navigation } = this.props;
+        navigation.navigate('Cart');
+    };
 
     render() {
         const { products } = this.state;
@@ -50,7 +59,9 @@ export default class Main extends Component {
                             <Image source={{ uri: item.image }} />
                             <Description>{item.title}</Description>
                             <Price>{item.price}</Price>
-                            <ButtonAddCart>
+                            <ButtonAddCart
+                                onPress={() => this.handleAddToCart(item)}
+                            >
                                 <ButtonIcon>
                                     <Icon
                                         name="add-shopping-cart"
@@ -70,3 +81,5 @@ export default class Main extends Component {
         );
     }
 }
+
+export default connect()(Main);
