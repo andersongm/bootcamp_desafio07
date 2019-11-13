@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import api from '../../services/api';
 import {
@@ -11,12 +12,14 @@ import {
     ButtonAddCart,
     ButtonAddCartText,
     ViewBtn,
+    ButtonIconText,
+    ButtonIcon,
 } from './styles';
 import Header from '../../components/Header';
 
 export default class Main extends Component {
     static navigationOptions = {
-        title: 'Rocketshoes',
+        title: 'Produtos',
     };
 
     state = {
@@ -50,6 +53,17 @@ export default class Main extends Component {
                             <Price>{item.price}</Price>
                             <ViewBtn>
                                 <ButtonAddCart>
+                                    <ButtonIcon>
+                                        <Icon
+                                            name="shopping-basket"
+                                            size={20}
+                                            color="#FFF"
+                                        />
+                                        <ButtonIconText>
+                                            1
+                                        </ButtonIconText>
+                                    </ButtonIcon>
+
                                     <ButtonAddCartText>
                                         Adicionar ao Carrinho
                                     </ButtonAddCartText>
