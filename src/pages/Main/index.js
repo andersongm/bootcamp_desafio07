@@ -18,9 +18,9 @@ import {
 } from './styles';
 
 class Main extends Component {
-    static navigationOptions = {
-        title: 'Produtos',
-    };
+    // static navigationOptions = {
+    //     title: 'Produtos',
+    // };
 
     navigation = this.props;
 
@@ -39,9 +39,12 @@ class Main extends Component {
     }
 
     handleAddToCart = item => {
-        console.tron.log('Add');
-        const { navigation } = this.props;
-        navigation.navigate('Cart');
+        const { dispatch } = this.props;
+
+        dispatch({
+            type: 'ADD_TO_CART',
+            item,
+        });
     };
 
     render() {

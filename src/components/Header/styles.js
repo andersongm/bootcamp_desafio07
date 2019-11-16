@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
 
+export const Wrapper = styled.SafeAreaView`
+    flex: 0;
+    background: #000;
+    flex-direction: row;
+`;
+
 export const Container = styled.View`
     flex-direction: row;
     justify-content: space-between;
