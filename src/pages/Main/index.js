@@ -3,6 +3,7 @@ import { connect } from 'react-redux'; // Conecta o Componente ao Estado do Redu
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header';
 import api from '../../services/api';
+import { formatPrice } from '../../util/format';
 
 import {
     Container,
@@ -33,17 +34,22 @@ class Main extends Component {
 
         console.tron.log(response);
 
+        const data = response.data.map(product => ({
+            ...product,
+            priceFormatted: formatPrice(product.price),
+        }));
+
         this.setState({
-            products: response.data,
+            products: data,
         });
     }
 
-    handleAddToCart = item => {
+    handleAddToCart = product => {
         const { dispatch } = this.props;
 
         dispatch({
             type: 'ADD_TO_CART',
-            item,
+            product,
         });
     };
 
@@ -61,7 +67,7 @@ class Main extends Component {
                         <ProductItem>
                             <Image source={{ uri: item.image }} />
                             <Description>{item.title}</Description>
-                            <Price>{item.price}</Price>
+                            <Price>{item.priceFormatted}</Price>
                             <ButtonAddCart
                                 onPress={() => this.handleAddToCart(item)}
                             >
