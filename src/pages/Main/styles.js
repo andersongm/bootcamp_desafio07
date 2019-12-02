@@ -13,13 +13,14 @@ export const ProductList = styled.FlatList`
 
 export const ProductItem = styled.View`
     background: #fff;
-    border: 1px solid #ccc;
-    /* padding: 10px 10px; */
-    margin-bottom: 10px;
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+    margin: 15px;
+    border-radius: 4px;
+    width: 220px;
     align-items: center;
     justify-content: center;
-    height: 250px;
-    border-radius: 4px;
+    /* height: 250px; */
 `;
 
 export const ViewBtn = styled.View`
@@ -30,17 +31,19 @@ export const ViewBtn = styled.View`
 `;
 
 export const Image = styled.Image`
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
 `;
 export const Description = styled.Text`
-    width: 80%;
-    padding: 5px;
+    /* width: 80%;
+    padding: 5px; */
+    font-size: 14px;
 `;
 export const Price = styled.Text`
+    margin: 14px 0px;
+    margin-bottom: 14px;
     font-weight: bold;
-    font-size: 18px;
-    padding: 5px;
+    font-size: 20px;
 `;
 
 export const ButtonIconText = styled.Text`
@@ -59,11 +62,11 @@ export const ButtonIcon = styled.View`
 `;
 export const ButtonAddCart = styled.TouchableOpacity`
     flex-direction: row;
-    /* background: #7159c1; */
-    background: #9176cc;
-    width: 90%;
-    height: 40px;
     border-radius: 4px;
+    background: #9176cc;
+    margin-top: auto;
+    /* width: 90%;
+    height: 40px; */
     justify-content: center;
     align-items: center;
 `;

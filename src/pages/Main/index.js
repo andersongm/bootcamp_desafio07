@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'; // Conecta o Componente ao Estado do Redux
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Header from '../../components/Header';
 import api from '../../services/api';
 import { formatPrice } from '../../util/format';
 
@@ -58,10 +57,10 @@ class Main extends Component {
 
         return (
             <Container>
-                <Header />
                 <ProductList
                     data={products}
-                    keyExtractor={product => product.id}
+                    keyExtractor={product => String(product.id)}
+                    horizontal
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item }) => (
                         <ProductItem>

@@ -101,6 +101,10 @@ export const Total = styled.Text`
     font-size: 20px;
     font-weight: bold;
 `;
+// export const EndButton = styled.TouchableOpacity.attrs(props => ({
+//     disabled:
+// }))`
+
 export const EndButton = styled.TouchableOpacity`
     background: #7159c1;
     width: 95%;

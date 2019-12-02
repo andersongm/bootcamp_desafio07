@@ -1,19 +1,28 @@
+import produce from 'immer'; // Immer is utilized for to use state like an array
+
 // Function like a reducer
 export default function cart(state = [], action) {
     switch (action.type) {
         case 'ADD_TO_CART':
-            // console.tron.log('Reducer:', action.item);
-            console.tron.log('Reducer:', state);
+            return produce(state, draft => {
+                const productIndex = draft.findIndex(
+                    p => p.id === action.product.id
+                );
 
-            // console.tron.log(state.length);
+                if (productIndex >= 0) {
+                    draft[productIndex].amount += 1;
+                } else {
+                    draft.push({ ...action.product, amount: 1 });
+                }
+            });
+        case 'REMOVE_FROM_CART':
+            return produce(state, draft => {
+                const productIndex = draft.findIndex(p => p.id === action.id);
 
-            return [
-                ...state,
-                {
-                    ...action.product,
-                    amount: 1,
-                },
-            ];
+                if (productIndex >= 0) {
+                    draft.splice(productIndex, 1);
+                }
+            });
 
         default:
             return state;

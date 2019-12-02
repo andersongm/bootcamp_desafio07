@@ -35,8 +35,17 @@ const styles = StyleSheet.create({
     },
 });
 
-function Cart({ navigation, products }) {
-    console.tron.log('products:', products);
+function Cart({ navigation, products, total, dispatch }) {
+    function handleRemoveItem(id) {
+        console.tron.log('Remover ID:', id);
+
+        dispatch({
+            type: 'REMOVE_FROM_CART',
+            id,
+        });
+
+        console.log(products);
+    }
 
     return (
         <Container>
@@ -55,7 +64,9 @@ function Cart({ navigation, products }) {
                                     {product.priceFormatted}
                                 </ProductPrice>
                             </Product>
-                            <ButtonDelete>
+                            <ButtonDelete
+                                onPress={() => handleRemoveItem(product.id)}
+                            >
                                 <Icon
                                     name="delete-forever"
                                     size={24}
@@ -73,7 +84,7 @@ function Cart({ navigation, products }) {
                                     />
                                 </ButtonRemove>
 
-                                <InputQtd>{1}</InputQtd>
+                                <InputQtd>{product.amount}</InputQtd>
                                 <ButtonAdd>
                                     <Icon
                                         name="add-circle-outline"
@@ -91,9 +102,9 @@ function Cart({ navigation, products }) {
                 <OrderContainer>
                     <TotalContainer>
                         <Text style={styles.textTotal}>TOTAL</Text>
-                        <Total>R$ 1000,00</Total>
+                        <Total>{total}</Total>
                     </TotalContainer>
-                    <EndButton>
+                    <EndButton disabled={!products}>
                         <EndButtonText>FINALIZAR PEDIDO</EndButtonText>
                     </EndButton>
                 </OrderContainer>
@@ -109,7 +120,7 @@ const mapStateToProps = state => ({
     })),
     total: formatPrice(
         state.cart.reduce(
-            (total, product) => total * product.price * product.amount,
+            (total, product) => total + product.price * product.amount,
             0
         )
     ),

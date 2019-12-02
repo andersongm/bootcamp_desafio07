@@ -30,7 +30,8 @@ module.exports = {
             'warn',
             {
                 extensions: ['.jsx', '.js']
-            }
+            },
+
         ],
         'import/prefer-default-export': 'off',
         'react/state-in-constructor': 'off',
@@ -39,7 +40,8 @@ module.exports = {
         'no-console':'off',
         'react/prefer-stateless-function': 'off',
         'react/prop-types': 'off',
-        'react/sort-comp': 'off'
-
+        'react/sort-comp': 'off',
+        'no-unused-vars': 'off',
+        'no-param-reassign': 'off'
     },
 };
