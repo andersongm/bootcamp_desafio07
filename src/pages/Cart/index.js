@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
+import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
+import * as CartActions from '../../store/modules/cart/actions';
 
 import {
     Container,
@@ -35,16 +37,21 @@ const styles = StyleSheet.create({
     },
 });
 
-function Cart({ navigation, products, total, dispatch }) {
+function Cart({ navigation, products, total, removeFromCart, updateAmount }) {
     function handleRemoveItem(id) {
         console.tron.log('Remover ID:', id);
 
-        dispatch({
-            type: 'REMOVE_FROM_CART',
-            id,
-        });
+        removeFromCart(id);
 
         console.log(products);
+    }
+
+    function increment(product) {
+        updateAmount(product.id, product.amount + 1);
+    }
+
+    function decrement(product) {
+        updateAmount(product.id, product.amount - 1);
     }
 
     return (
@@ -76,7 +83,9 @@ function Cart({ navigation, products, total, dispatch }) {
                         </ProductData>
                         <QuantContainer>
                             <QuantControls>
-                                <ButtonRemove>
+                                <ButtonRemove
+                                    onPress={() => decrement(product)}
+                                >
                                     <Icon
                                         name="remove-circle-outline"
                                         size={20}
@@ -85,7 +94,7 @@ function Cart({ navigation, products, total, dispatch }) {
                                 </ButtonRemove>
 
                                 <InputQtd>{product.amount}</InputQtd>
-                                <ButtonAdd>
+                                <ButtonAdd onPress={() => increment(product)}>
                                     <Icon
                                         name="add-circle-outline"
                                         size={20}
@@ -104,7 +113,7 @@ function Cart({ navigation, products, total, dispatch }) {
                         <Text style={styles.textTotal}>TOTAL</Text>
                         <Total>{total}</Total>
                     </TotalContainer>
-                    <EndButton disabled={!products}>
+                    <EndButton>
                         <EndButtonText>FINALIZAR PEDIDO</EndButtonText>
                     </EndButton>
                 </OrderContainer>
@@ -126,4 +135,7 @@ const mapStateToProps = state => ({
     ),
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(CartActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
