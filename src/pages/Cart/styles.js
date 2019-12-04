@@ -1,5 +1,20 @@
 import styled from 'styled-components';
 
+export const CartEmpty = styled.View`
+    background: #bbb;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 20px;
+`;
+
+export const CartEmptyText = styled.Text`
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 18px;
+`;
+
 export const Container = styled.View`
     flex: 1;
     background: #000;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { connect } from 'react-redux';
@@ -27,6 +27,8 @@ import {
     QuantControls,
     OrderContainer,
     ProductList,
+    CartEmpty,
+    CartEmptyText,
 } from './styles';
 import { formatPrice } from '../../util/format';
 
@@ -37,87 +39,100 @@ const styles = StyleSheet.create({
     },
 });
 
-function Cart({ navigation, products, total, removeFromCart, updateAmount }) {
+function Cart({
+    navigation,
+    products,
+    total,
+    removeFromCart,
+    updateAmountRequest,
+}) {
     function handleRemoveItem(id) {
-        console.tron.log('Remover ID:', id);
-
         removeFromCart(id);
-
-        console.log(products);
     }
 
     function increment(product) {
-        updateAmount(product.id, product.amount + 1);
+        updateAmountRequest(product.id, product.amount + 1);
     }
 
     function decrement(product) {
-        updateAmount(product.id, product.amount - 1);
+        updateAmountRequest(product.id, product.amount - 1);
     }
 
     return (
         <Container>
-            <ProductList>
-                {products.map(product => (
-                    <ItemContainer key={product.id}>
-                        <ProductData>
-                            <Image
-                                source={{
-                                    uri: product.image,
-                                }}
-                            />
-                            <Product>
-                                <ProductTitle>{product.title}</ProductTitle>
-                                <ProductPrice>
-                                    {product.priceFormatted}
-                                </ProductPrice>
-                            </Product>
-                            <ButtonDelete
-                                onPress={() => handleRemoveItem(product.id)}
-                            >
-                                <Icon
-                                    name="delete-forever"
-                                    size={24}
-                                    color="#7159c1"
+            {products.length === 0 ? (
+                <CartEmpty>
+                    <Icon name="remove-shopping-cart" size={64} color="#eee" />
+                    <CartEmptyText>Carrinho Vazio</CartEmptyText>
+                </CartEmpty>
+            ) : (
+                <ProductList>
+                    {products.map(product => (
+                        <ItemContainer key={product.id}>
+                            <ProductData>
+                                <Image
+                                    source={{
+                                        uri: product.image,
+                                    }}
                                 />
-                            </ButtonDelete>
-                        </ProductData>
-                        <QuantContainer>
-                            <QuantControls>
-                                <ButtonRemove
-                                    onPress={() => decrement(product)}
+                                <Product>
+                                    <ProductTitle>{product.title}</ProductTitle>
+                                    <ProductPrice>
+                                        {product.priceFormatted}
+                                    </ProductPrice>
+                                </Product>
+                                <ButtonDelete
+                                    onPress={() => handleRemoveItem(product.id)}
                                 >
                                     <Icon
-                                        name="remove-circle-outline"
-                                        size={20}
+                                        name="delete-forever"
+                                        size={24}
                                         color="#7159c1"
                                     />
-                                </ButtonRemove>
+                                </ButtonDelete>
+                            </ProductData>
+                            <QuantContainer>
+                                <QuantControls>
+                                    <ButtonRemove
+                                        onPress={() => decrement(product)}
+                                    >
+                                        <Icon
+                                            name="remove-circle-outline"
+                                            size={20}
+                                            color="#7159c1"
+                                        />
+                                    </ButtonRemove>
 
-                                <InputQtd>{product.amount}</InputQtd>
-                                <ButtonAdd onPress={() => increment(product)}>
-                                    <Icon
-                                        name="add-circle-outline"
-                                        size={20}
-                                        color="#7159c1"
-                                    />
-                                </ButtonAdd>
-                            </QuantControls>
-                            <Subtotal>
-                                <SubtotalText>{product.subtotal}</SubtotalText>
-                            </Subtotal>
-                        </QuantContainer>
-                    </ItemContainer>
-                ))}
-                <OrderContainer>
-                    <TotalContainer>
-                        <Text style={styles.textTotal}>TOTAL</Text>
-                        <Total>{total}</Total>
-                    </TotalContainer>
-                    <EndButton>
-                        <EndButtonText>FINALIZAR PEDIDO</EndButtonText>
-                    </EndButton>
-                </OrderContainer>
-            </ProductList>
+                                    <InputQtd>{product.amount}</InputQtd>
+                                    <ButtonAdd
+                                        onPress={() => increment(product)}
+                                    >
+                                        <Icon
+                                            name="add-circle-outline"
+                                            size={20}
+                                            color="#7159c1"
+                                        />
+                                    </ButtonAdd>
+                                </QuantControls>
+                                <Subtotal>
+                                    <SubtotalText>
+                                        {product.subtotal}
+                                    </SubtotalText>
+                                </Subtotal>
+                            </QuantContainer>
+                        </ItemContainer>
+                    ))}
+                    <OrderContainer>
+                        <TotalContainer>
+                            <Text style={styles.textTotal}>TOTAL</Text>
+                            <Total>{total}</Total>
+                        </TotalContainer>
+                        <EndButton>
+                            <EndButtonText>FINALIZAR PEDIDO</EndButtonText>
+                        </EndButton>
+                    </OrderContainer>
+                </ProductList>
+            )}
         </Container>
     );
 }
